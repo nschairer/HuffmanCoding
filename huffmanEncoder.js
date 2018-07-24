@@ -1,7 +1,6 @@
 class Node {
 	constructor(data, left=null, right=null) {
 		this.data = data;
-		this.prefix = null;
 		this.left = left;
 		this.right = right;
 	}
@@ -41,19 +40,6 @@ function minHeap(nodes) {
 		nodes.sort((x,y) => y.data[1] - x.data[1]);
 	}
 	return nodes[0];
-}
-
-function traverse(char,freq,tree,prefix='') {
-	if(char === tree.data[0]) {
-		return prefix;
-	}
-	if(tree.left && freq > tree.left.data[1]) {
-		traverse(char,freq,tree.right,prefix+=1);
-	} else {
-		traverse(char,freq,tree.left,prefix+='0');
-	}
-
-	return prefix;
 }
 
 function traversal(char,freq,tree) {
