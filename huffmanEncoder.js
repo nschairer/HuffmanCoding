@@ -1,10 +1,4 @@
-class Node {
-	constructor(data, left=null, right=null) {
-		this.data = data;
-		this.left = left;
-		this.right = right;
-	}
-}
+const Node = require('./Node').Node;
 
 function frequencyMap(text) {
 	let obj = {};
@@ -73,7 +67,7 @@ function encodeString(text) {
 	console.log(result);
 	return result;
 }
-encodeString('noah');
+encodeString('This is a story all about how my life got flipped turned upside down');
 
 
 
