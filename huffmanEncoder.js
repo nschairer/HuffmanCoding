@@ -21,7 +21,7 @@ function mapAndSort(text) {
 	for(let obj in map) {
 		sortable.push([obj, map[obj]]);
 	}
-	sortable.sort((x,y) => x[1] - y[1]).reverse();
+	sortable.sort((x,y) => x[1] - y[1]);
 	const nodes = sortable.map((x) => new Node(x))
 	return nodes;
 	
@@ -37,47 +37,24 @@ function minHeap(nodes) {
 		} else {
 			nodes.push(new Node(['',sum], two, one));
 		}
-		nodes.sort((x,y) => y.data[1] - x.data[1]);
+		nodes.sort((x,y) => x.data[1] - y.data[1]);
 	}
 	return nodes[0];
 }
 
-function traversal(char,freq,tree) {
-	let prefix = ''
-	let node = tree;
-	//only character nodes have null left and rights
-	while(node.left && node.right) {
-		if(char === node.data[0]) {
-			break;
-		}
-
-		if (node.left.data[1] === freq && node.left.data[0] != char) {
-			prefix+='1'
-			node = node.right;
-			continue;
-		}
-
-		if (node.left.data[1] >= freq) {
-			prefix+='0';
-			node = node.left;
-			continue;
-		} else {
-			prefix+='1'
-			node = node.right;
-			continue;
-		}
+function mapPrefixes(map, root, path='') {
+	if (!root.left && !root.right) {
+		map[root.data[0]] = path;
+	} else {
+		mapPrefixes(map, root.left, path+'0');
+		mapPrefixes(map, root.right, path+'1');
 	}
-
-	return prefix;
 }
 
 function generatePrefixes(text) {
-	let map = frequencyMap(text);
-	let tree = minHeap(mapAndSort(text));
-	let prefixes = {}
-	for(obj in map) {
-		prefixes[obj] = traversal(obj,map[obj], tree);
-	}
+	const tree = minHeap(mapAndSort(text));
+	const prefixes = {}
+	mapPrefixes(prefixes,tree);
 	console.log(prefixes);
 	return prefixes;
 }
@@ -85,7 +62,7 @@ function generatePrefixes(text) {
 
 function encodeString(text) {
 	let result = ''
-	let prefixes = generatePrefixes(text);
+	const prefixes = generatePrefixes(text);
 	for(let char of text) {
 		for(let code in prefixes) {
 			if (char === code) {
@@ -93,11 +70,10 @@ function encodeString(text) {
 			}
 		}
 	}
+	console.log(result);
 	return result;
 }
-
-console.log(encodeString('aaaaabbccaaa'));
-
+encodeString('noah');
 
 
 
