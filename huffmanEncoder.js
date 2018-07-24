@@ -45,8 +45,7 @@ function mapPrefixes(map, root, path='') {
 	}
 }
 
-function generatePrefixes(text) {
-	const tree = minHeap(mapAndSort(text));
+function generatePrefixes(text, tree) {
 	const prefixes = {}
 	mapPrefixes(prefixes,tree);
 	console.log(prefixes);
@@ -56,7 +55,8 @@ function generatePrefixes(text) {
 
 function encodeString(text) {
 	let result = ''
-	const prefixes = generatePrefixes(text);
+	const tree = minHeap(mapAndSort(text));
+	const prefixes = generatePrefixes(text, tree);
 	for(let char of text) {
 		for(let code in prefixes) {
 			if (char === code) {
@@ -65,12 +65,10 @@ function encodeString(text) {
 		}
 	}
 	console.log(result);
-	return result;
+	return {huffmanString: result, key: tree};
 }
-encodeString('This is a story all about how my life got flipped turned upside down');
 
-
-
+module.exports = encodeString;
 
 
 
