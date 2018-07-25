@@ -1,6 +1,6 @@
 const encodeString = require('./huffmanEncoder');
 
-const huffmanObj = encodeString('AAAAAABBBBBBCCCCCDDDDEEFFF');
+const huffmanObj = encodeString('Noah Schairer');
 
 function traversal(string, tree) {
 	let refTree = tree;
