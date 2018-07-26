@@ -48,7 +48,7 @@ function mapPrefixes(map, root, path='') {
 function generatePrefixes(text, tree) {
 	const prefixes = {}
 	mapPrefixes(prefixes,tree);
-	console.log(prefixes);
+	//console.log(prefixes);
 	return prefixes;
 }
 
@@ -64,7 +64,7 @@ function encodeString(text) {
 			}
 		}
 	}
-	console.log(result);
+	//console.log(result);
 	return {huffmanString: result, key: tree};
 }
 

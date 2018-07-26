@@ -1,3 +1,6 @@
+const decode = require('./huffmanDecoder');
+
+
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
