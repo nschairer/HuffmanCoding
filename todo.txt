@@ -1,0 +1,4 @@
+// In the following order
+1. Set an EOF special character before encoding the string such as Ø
+2. After encoding and compressing, try setting a conditional within the huffmanDecoder to see if we can get the correct binary string (console log before compression and after decompression)
+3. Figure out whether the tree encoder works and how to decode/rebuild it. Also, try writing to the same file instead of a different file.
