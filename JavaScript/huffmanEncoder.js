@@ -93,6 +93,8 @@ function compress(string) {
 	let byte = 0;
 	while(index < string.length) {
 		//need to account for slices that are less than 8 in length and EOF marker and including the tree
+		//need to try setting pseudo EOF, by adding symbol to end of the file before we encode it, then it has its own prefix
+		//that we can grab from the rebuilt tree in the decoder
 		byteArray[byte] = parseInt(string.slice(index, index + size), 2);
 		index+=size;
 		byte++;
