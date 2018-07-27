@@ -1,10 +1,6 @@
 const decode = require('./huffmanDecoder');
-
-
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
-
 
 function readFile(name) {
 	const readStream = fs.createReadStream(path.join(__dirname, name));

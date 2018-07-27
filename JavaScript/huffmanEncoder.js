@@ -52,6 +52,54 @@ function generatePrefixes(text, tree) {
 	return prefixes;
 }
 
+function mapTree(arr, root) {
+	if (!root.left && !root.right) {
+		arr.push('1' + root.data[0]);
+	} else {
+		arr.push('0')
+		mapTree(arr, root.left);
+		mapTree(arr, root.right);
+	}
+}
+
+
+function encodeTree(tree) {
+	const result = [];
+	mapTree(result, tree);
+	let string = result.join('');
+	let binaryArr = [];
+	let padding = '00000000';
+	for(let char of string) {
+		if (char !== '0' && char !== '1') {
+			char = char.charCodeAt(0).toString(2);
+		}
+		char = padding.substr(char.length) +  char;
+		binaryArr.push(char);
+	}
+	let index = 0;
+	const byteArray = new Uint8Array(binaryArr.length);
+	for(let byte of binaryArr) {
+		byteArray[index] = parseInt(byte,2);
+		index++;
+	}
+	//console.log(byteArray);
+	return byteArray;
+}
+
+function compress(string) {
+	const size = 8;
+	const byteArray = new Uint8Array(Math.ceil(string.length/8));
+	let index = 0;
+	let byte = 0;
+	while(index < string.length) {
+		//need to account for slices that are less than 8 in length and EOF marker and including the tree
+		byteArray[byte] = parseInt(string.slice(index, index + size), 2);
+		index+=size;
+		byte++;
+	}
+	return byteArray;
+}
+
 
 function encodeString(text) {
 	let result = ''
@@ -64,8 +112,10 @@ function encodeString(text) {
 			}
 		}
 	}
+	const encodedTree = encodeTree(tree);
+	const byteArray = compress(result);
 	//console.log(result);
-	return {huffmanString: result, key: tree};
+	return {huffmanString: result, key: tree, byteArray: byteArray, encodedTree: encodedTree};
 }
 
 module.exports = encodeString;
