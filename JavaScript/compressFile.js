@@ -2,9 +2,7 @@ const encode = require('./huffmanEncoder');
 const fs = require('fs');
 const path = require('path');
 
-const huffObj = encode('Data compression using Huffman Coding, currently completed an encoder in JavaScript. Capable of compressing small strings, not optimized for paragraphs or files yet. I would like to continue to grow this repository to support many languages and to be able to compress large text files and more.');
-
-function writeFile() {
+function writeFile(huffObj) {
 	fs.writeFile(path.join(__dirname,'binaryfile'),new Buffer(huffObj.byteArray), function(err) {
 		if(err) {
 			console.log(err);
@@ -29,4 +27,12 @@ function writeHeader(map) {
 	return keyString;
 }
 
-writeFile();
+fs.readFile(path.join(__dirname, 'file'),'utf8', function(err, data) {
+		if(err) {
+			console.log(err);
+			return null;
+		} else {
+			const huffObj = encode(data);
+			writeFile(huffObj);
+		}
+});
