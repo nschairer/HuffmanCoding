@@ -74,7 +74,7 @@ function encodeString(text) {
 	const prefixes = generatePrefixes(text, tree);
 	console.log(prefixes);
 	const freqMap = frequencyMap(text + '■');
-	for(let char of text) {
+	for(let char of text + '■') {
 		for(let code in prefixes) {
 			if (char === code) {
 				result += prefixes[code];

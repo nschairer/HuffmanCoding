@@ -1,6 +1,6 @@
 const encodeString = require('./huffmanEncoder');
 
-//const huffmanObj = encodeString('AAAAABBBCC');
+//const huffmanObj = encodeString('Data compression using Huffman Coding, currently completed an encoder in JavaScript. Capable of compressing small strings, not optimized for paragraphs or files yet. I would like to continue to grow this repository to support many languages and to be able to compress large text files and more.');
 
 function traversal(string, tree) {
 	let refTree = tree;
