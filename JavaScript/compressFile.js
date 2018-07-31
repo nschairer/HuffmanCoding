@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 function writeFile(huffObj) {
-	fs.writeFile(path.join(__dirname,'binaryfile'),new Buffer(huffObj.byteArray), function(err) {
+	fs.writeFile(path.join(__dirname,'binaryFile'),new Buffer(huffObj.byteArray), function(err) {
 		if(err) {
 			console.log(err);
 		} else {

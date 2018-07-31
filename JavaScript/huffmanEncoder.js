@@ -16,7 +16,6 @@ function mapAndSort(text) {
 	}
 	sortable.sort((x,y) => x[1] - y[1]);
 	const nodes = sortable.map((x) => new Node(x))
-	console.log(nodes);
 	return nodes;
 }
 
