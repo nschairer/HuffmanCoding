@@ -13,6 +13,7 @@ function traversal(string, tree) {
 				break;
 			} else {
 				result+=refTree.data[0];
+				process.stdout.write(refTree.data[0]);
 				refTree = tree;
 				arr = arr.slice(index);
 				index = 0;
@@ -25,7 +26,7 @@ function traversal(string, tree) {
 		}
 		index++;
 	}
-	console.log(result);
+	console.log(' ');
 }
 
 function decode(obj) {

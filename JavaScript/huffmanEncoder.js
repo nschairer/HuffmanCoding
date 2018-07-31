@@ -69,11 +69,12 @@ function compress(string) {
 
 
 function encodeString(text) {
+	let data = text + '■';
 	let result = ''
-	const tree = minHeap(mapAndSort(text + '■'));
-	const prefixes = generatePrefixes(text, tree);
-	const freqMap = frequencyMap(text + '■');
-	for(let char of text + '■') {
+	const tree = minHeap(mapAndSort(data));
+	const prefixes = generatePrefixes(data, tree);
+	const freqMap = frequencyMap(data);
+	for(let char of data) {
 		for(let code in prefixes) {
 			if (char === code) {
 				result += prefixes[code];
