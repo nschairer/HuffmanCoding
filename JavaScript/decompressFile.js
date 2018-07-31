@@ -12,9 +12,7 @@ function sort(text) {
 		sorted.push([item[0], parseInt(item.slice(1))]);
 	});
 	sorted.sort((x,y) => x[1] - y[1]);
-	//console.log(sorted);
 	const nodes = sorted.map((x) => new Node(x))
-	//console.log(nodes);
 	return nodes;
 }
 
@@ -33,21 +31,6 @@ function minHeap(nodes) {
 	return nodes[0];
 }
 
-function mapPrefixes(map, root, path='') {
-	if (!root.left && !root.right) {
-		map[root.data[0]] = path;
-	} else {
-		mapPrefixes(map, root.left, path+'0');
-		mapPrefixes(map, root.right, path+'1');
-	}
-}
-
-function generatePrefixes(text, tree) {
-	const prefixes = {}
-	mapPrefixes(prefixes,tree);
-	return prefixes;
-}
-
 function sortHeader(string) {
 	fs.readFile(path.join(__dirname, 'fileKey'),'utf8', function(err, data) {
 		if(err) {
@@ -63,7 +46,6 @@ function sortHeader(string) {
 function readFile(name) {
 	const readStream = fs.createReadStream(path.join(__dirname, name));
 	readStream.on('data', function(chunk) {
-		//console.log(new Uint8Array(chunk));
 		let myString = '';
 		let holder = '00000000'
 		for (let i=0; i<chunk.byteLength; i++) {
@@ -71,7 +53,6 @@ function readFile(name) {
             bString = holder.substr(bString.length) + bString;
             myString += bString;
         }
-        //console.log(myString)
         sortHeader(myString);
 	});
 }
