@@ -16,6 +16,7 @@ function mapAndSort(text) {
 	}
 	sortable.sort((x,y) => x[1] - y[1]);
 	const nodes = sortable.map((x) => new Node(x))
+	console.log(nodes);
 	return nodes;
 }
 
@@ -72,7 +73,6 @@ function encodeString(text) {
 	let result = ''
 	const tree = minHeap(mapAndSort(text + '■'));
 	const prefixes = generatePrefixes(text, tree);
-	console.log(prefixes);
 	const freqMap = frequencyMap(text + '■');
 	for(let char of text + '■') {
 		for(let code in prefixes) {
