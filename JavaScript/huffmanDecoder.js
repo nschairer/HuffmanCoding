@@ -1,6 +1,6 @@
 const encodeString = require('./huffmanEncoder');
 
-const huffmanObj = encodeString('Noah Schairer');
+//const huffmanObj = encodeString('AAAAABBBCC');
 
 function traversal(string, tree) {
 	let refTree = tree;
@@ -9,12 +9,15 @@ function traversal(string, tree) {
 	let index = 0;
 	while(arr.length) {
 		if(!refTree.left && !refTree.right) {
-			result+=refTree.data[0];
-			refTree = tree;
-			arr = arr.slice(index);
-			index = 0;
+			if(refTree.data[0] === '■') {
+				break;
+			} else {
+				result+=refTree.data[0];
+				refTree = tree;
+				arr = arr.slice(index);
+				index = 0;
+			}
 		}
-
 		if(arr[index] === '0') {
 			refTree = refTree.left;
 		} else {
@@ -31,4 +34,5 @@ function decode(obj) {
 	traversal(data, tree);
 }
 
-decode(huffmanObj);
+//decode(huffmanObj);
+module.exports = traversal;

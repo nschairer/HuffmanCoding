@@ -10,7 +10,6 @@ function frequencyMap(text) {
 
 function mapAndSort(text) {
 	let map = frequencyMap(text);
-	//have to make the tree after the map
 	const sortable = [];
 	for(let obj in map) {
 		sortable.push([obj, map[obj]]);
@@ -18,7 +17,6 @@ function mapAndSort(text) {
 	sortable.sort((x,y) => x[1] - y[1]);
 	const nodes = sortable.map((x) => new Node(x))
 	return nodes;
-	
 }
 
 function minHeap(nodes) {
@@ -48,42 +46,7 @@ function mapPrefixes(map, root, path='') {
 function generatePrefixes(text, tree) {
 	const prefixes = {}
 	mapPrefixes(prefixes,tree);
-	//console.log(prefixes);
 	return prefixes;
-}
-
-function mapTree(arr, root) {
-	if (!root.left && !root.right) {
-		arr.push('1' + root.data[0]);
-	} else {
-		arr.push('0')
-		mapTree(arr, root.left);
-		mapTree(arr, root.right);
-	}
-}
-
-
-function encodeTree(tree) {
-	const result = [];
-	mapTree(result, tree);
-	let string = result.join('');
-	let binaryArr = [];
-	let padding = '00000000';
-	for(let char of string) {
-		if (char !== '0' && char !== '1') {
-			char = char.charCodeAt(0).toString(2);
-		}
-		char = padding.substr(char.length) +  char;
-		binaryArr.push(char);
-	}
-	let index = 0;
-	const byteArray = new Uint8Array(binaryArr.length);
-	for(let byte of binaryArr) {
-		byteArray[index] = parseInt(byte,2);
-		index++;
-	}
-	//console.log(byteArray);
-	return byteArray;
 }
 
 function compress(string) {
@@ -91,11 +54,13 @@ function compress(string) {
 	const byteArray = new Uint8Array(Math.ceil(string.length/8));
 	let index = 0;
 	let byte = 0;
+	let holder = '00000000'
 	while(index < string.length) {
-		//need to account for slices that are less than 8 in length and EOF marker and including the tree
-		//need to try setting pseudo EOF, by adding symbol to end of the file before we encode it, then it has its own prefix
-		//that we can grab from the rebuilt tree in the decoder
-		byteArray[byte] = parseInt(string.slice(index, index + size), 2);
+		let slice = string.slice(index, index + size);
+		if(slice.length < 8) {
+			slice = slice + holder.substr(slice.length);
+		}
+		byteArray[byte] = parseInt(slice, 2);
 		index+=size;
 		byte++;
 	}
@@ -105,8 +70,10 @@ function compress(string) {
 
 function encodeString(text) {
 	let result = ''
-	const tree = minHeap(mapAndSort(text));
+	const tree = minHeap(mapAndSort(text + '■'));
 	const prefixes = generatePrefixes(text, tree);
+	console.log(prefixes);
+	const freqMap = frequencyMap(text + '■');
 	for(let char of text) {
 		for(let code in prefixes) {
 			if (char === code) {
@@ -114,10 +81,8 @@ function encodeString(text) {
 			}
 		}
 	}
-	const encodedTree = encodeTree(tree);
 	const byteArray = compress(result);
-	//console.log(result);
-	return {huffmanString: result, key: tree, byteArray: byteArray, encodedTree: encodedTree};
+	return {huffmanString: result, key: tree, byteArray: byteArray, header: freqMap};
 }
 
 module.exports = encodeString;
