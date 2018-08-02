@@ -57,4 +57,4 @@ function readFile(name) {
 	});
 }
 
-readFile('binaryfile');
+readFile('binaryFile');
