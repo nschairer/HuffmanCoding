@@ -1,6 +1,6 @@
 from HuffmanEncoder import encodeString
 
-obj = encodeString('My name is noah schairer')
+#obj = encodeString('My name is noah schairer')
 
 def traversal(string, tree):
 	ref = tree
@@ -23,4 +23,4 @@ def traversal(string, tree):
 		index += 1
 	print(result)
 
-traversal(obj['string'], obj['tree'])
+#traversal(obj['string'], obj['tree'])

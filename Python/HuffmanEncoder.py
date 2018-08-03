@@ -39,9 +39,26 @@ def mapPrefixes(map, root, path=''):
 def generatePrefixes(tree):
 	prefixes = {}
 	mapPrefixes(prefixes, tree)
-	print(prefixes)
 	return prefixes
 
+def createByteArray(text):
+	bArr = bytearray()
+	holder = '00000000'
+	for x in range(0, len(text), 8):
+		chunk = text[x:x+8]
+		if len(chunk) < 8:
+			chunk = chunk + holder[len(chunk):]
+		bArr.append(int(chunk, 2))
+	return bArr
+
+
+def writeFileHeader(freqMap):
+	result = ''
+	for char in freqMap:
+		result += (char + str(freqMap[char]) + '_')
+	result = result[:len(result) - 1]
+	return result
+	
 def encodeString(text):
 	result = ''
 	data = text + '■'
@@ -52,5 +69,10 @@ def encodeString(text):
 		for code in prefixes:
 			if char == code:
 				result += prefixes[code]
-	print(result)
-	return {'string': result, 'tree': tree}
+	byteArr = createByteArray(result)
+	header = writeFileHeader(freqMap)
+	return {'string': result, 'tree': tree, 'byteArr': byteArr, 'header': header}
+
+
+
+
