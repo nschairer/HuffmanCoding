@@ -44,13 +44,13 @@ def generatePrefixes(tree):
 
 def encodeString(text):
 	result = ''
-	freqMap = frequencyMap(text)
+	data = text + '■'
+	freqMap = frequencyMap(data)
 	tree = minHeap(sortAndCreateNodes(freqMap))
 	prefixes = generatePrefixes(tree)
-	for char in text:
+	for char in data:
 		for code in prefixes:
 			if char == code:
 				result += prefixes[code]
 	print(result)
-
-encodeString('AAAAAAABBBC')
+	return {'string': result, 'tree': tree}
