@@ -1,8 +1,4 @@
 from HuffmanEncoder import encodeString
-import os
-
-directory = os.getcwd()
-
 
 with open('file.txt', 'r') as mFile:
 	data = mFile.read()
