@@ -38,7 +38,6 @@ def decodeFromArray(tree, string):
 	prefixArr = prefixArray(tree)
 	result = ''
 	temp = ''
-	index = 0
 	for char in string:
 		temp += char
 		for obj in prefixArr:
@@ -48,3 +47,47 @@ def decodeFromArray(tree, string):
 				temp = ''
 				break
 	print(result)
+
+
+
+
+#Switched to searching reversed table {'0100': 'a'}, cut from 16.54s for 1.4MB to 1.83s
+
+def mapPrefixes(map, root, path=''):
+	if root.left is None and root.right is None:
+		map[path] = root.data[0]
+	else:
+		mapPrefixes(map, root.left, path+'0')
+		mapPrefixes(map, root.right, path+'1')
+
+def generatePrefixTable(tree):
+	prefixes = {}
+	mapPrefixes(prefixes, tree)
+	return prefixes
+
+
+def decodeFromPrefixTable(tree, string):
+	prefixTable = generatePrefixTable(tree)
+	result = ''
+	temp = ''
+	for char in string:
+		temp += char
+		if temp in prefixTable:
+			if prefixTable[temp] == '■': break
+			result += prefixTable[temp]
+			temp = ''
+	print(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

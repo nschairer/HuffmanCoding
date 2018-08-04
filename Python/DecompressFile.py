@@ -1,4 +1,4 @@
-from HuffmanDecoder import traversal, decodeFromArray
+from HuffmanDecoder import traversal, decodeFromPrefixTable
 from HuffmanEncoder import minHeap
 from node import Node
 import time
@@ -24,6 +24,6 @@ with open('header', 'r') as rFile:
 		for byte in bData:
 			bString += format(byte, '08b')
 	
-	decodeFromArray(tree, bString)
+	decodeFromPrefixTable(tree, bString)
 
-print("\n\n--- %s seconds ---" % (time.time() - start_time))
+print("\n--- %s seconds ---" % (time.time() - start_time))
