@@ -1,6 +1,9 @@
-from HuffmanDecoder import traversal
+from HuffmanDecoder import traversal, decodeFromArray
 from HuffmanEncoder import minHeap
 from node import Node
+import time
+
+start_time = time.time()
 
 
 def sortAndCreateNodes(text):
@@ -20,4 +23,7 @@ with open('header', 'r') as rFile:
 		bData = bytearray(bFile.read())
 		for byte in bData:
 			bString += format(byte, '08b')
-	traversal(bString, tree)
+	
+	decodeFromArray(tree, bString)
+
+print("\n\n--- %s seconds ---" % (time.time() - start_time))
