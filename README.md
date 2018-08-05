@@ -36,3 +36,6 @@ Prefixes:<br/><br/>
   b: '1110011',
   p: '11101',
   o: '1111' }
+  <br/><br/>
+  Usage:<br/>
+        - Compress the test file included by entering node compressfile.js for Javascript and python compressfile.py for Python.      Decompress the file to the terminal by entering node decompressfile.js or python decompressfile.py
