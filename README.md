@@ -39,12 +39,16 @@ Prefixes:<br/><br/>
   <br/><br/>
   Compress Testfile:<br/>
         ```
-        node compressfile.js <br/>
+        node compressfile.js
+        ```<br/>
+        ```
         python compressfile.py
         ```
         <br/>
  Decompress Testfile:<br/>
       ```
-      node decompressfile.js <br/>
+      node decompressfile.js
+      ```<br/>
+      ```
       python decompressfile.py
       ```
