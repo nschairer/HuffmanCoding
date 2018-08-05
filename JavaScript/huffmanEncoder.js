@@ -75,11 +75,7 @@ function encodeString(text) {
 	const prefixes = generatePrefixes(data, tree);
 	const freqMap = frequencyMap(data);
 	for(let char of data) {
-		for(let code in prefixes) {
-			if (char === code) {
-				result += prefixes[code];
-			}
-		}
+		result += prefixes[char];
 	}
 	const byteArray = compress(result);
 	return {huffmanString: result, key: tree, byteArray: byteArray, header: freqMap};
