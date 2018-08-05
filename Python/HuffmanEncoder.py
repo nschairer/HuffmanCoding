@@ -66,9 +66,7 @@ def encodeString(text):
 	tree = minHeap(sortAndCreateNodes(freqMap))
 	prefixes = generatePrefixes(tree)
 	for char in data:
-		for code in prefixes:
-			if char == code:
-				result += prefixes[code]
+		result += prefixes[char]
 	byteArr = createByteArray(result)
 	header = writeFileHeader(freqMap)
 	return {'string': result, 'tree': tree, 'byteArr': byteArr, 'header': header}
