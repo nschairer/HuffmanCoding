@@ -2,6 +2,9 @@ const encodeString = require('./huffmanEncoder');
 
 //const huffmanObj = encodeString('Data compression using Huffman Coding, currently completed an encoder in JavaScript. Capable of compressing small strings, not optimized for paragraphs or files yet. I would like to continue to grow this repository to support many languages and to be able to compress large text files and more.');
 
+
+//Going to switch to searching prefix table instead for optimization when decoding, 
+//reference python repo for example
 function traversal(string, tree) {
 	let refTree = tree;
 	let arr = string.split('');
